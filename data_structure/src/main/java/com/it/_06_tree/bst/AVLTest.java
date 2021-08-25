@@ -1,6 +1,6 @@
 package com.it._06_tree.bst;
 
-import com.it.printer.BinaryTrees;
+import com.it._06_tree.printer.BinaryTrees;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -12,8 +12,8 @@ import java.util.Arrays;
 public class AVLTest {
 
     @Test
-    public void testAdd(){
-        Integer[] data = {85,19,69,3,7,99,95};
+    public void testAdd() {
+        Integer[] data = {85, 19, 69, 3, 7, 99, 95};
         BST<Integer> bst = new BST<>();
         AVL<Integer> avl = new AVL<>();
         Arrays.stream(data).forEach(bst::add);
@@ -29,7 +29,7 @@ public class AVLTest {
     }
 
     @Test
-    public void testRemove(){
+    public void testRemove() {
 
     }
 }

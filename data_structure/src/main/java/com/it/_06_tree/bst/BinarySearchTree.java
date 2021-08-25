@@ -1,6 +1,6 @@
 package com.it._06_tree.bst;
 
-import com.it.printer.BinaryTreeInfo;
+import com.it._06_tree.printer.BinaryTreeInfo;
 
 import java.util.Comparator;
 import java.util.LinkedList;

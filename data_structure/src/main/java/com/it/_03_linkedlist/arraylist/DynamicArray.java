@@ -1,7 +1,11 @@
 package com.it._03_linkedlist.arraylist;
 
-import com.it.AbstractList;
 
+import com.it._03_linkedlist.AbstractList;
+
+/**
+ * @author code1997
+ */
 public class DynamicArray<E> extends AbstractList<E> {
     /**
      * 存放元素

@@ -1,12 +1,15 @@
 package com.it._06_tree.printer;
 
+/**
+ * @author code1997
+ */
 public abstract class Printer {	
 	/**
 	 * 二叉树的基本信息
 	 */
 	protected BinaryTreeInfo tree;
 	
-	public Printer(BinaryTreeInfo tree) {
+	protected Printer(BinaryTreeInfo tree) {
 		this.tree = tree;
 	}
 	

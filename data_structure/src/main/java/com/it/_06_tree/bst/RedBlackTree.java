@@ -48,11 +48,13 @@ public class RedBlackTree<E> extends AVL<E> {
     private boolean colorOf(Node<E> node) {
         return node == null ? BLACK : ((RedBlackNode<E>) node).color;
     }
-    private boolean isBlack(Node<E> node){
-        return colorOf(node)==BLACK;
+
+    private boolean isBlack(Node<E> node) {
+        return colorOf(node) == BLACK;
     }
-    private boolean isRed(Node<E> node){
-        return !colorOf(node)==RED;
+
+    private boolean isRed(Node<E> node) {
+        return !colorOf(node) == RED;
     }
 
 

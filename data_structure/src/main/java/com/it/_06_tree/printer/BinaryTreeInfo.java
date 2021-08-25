@@ -1,5 +1,10 @@
 package com.it._06_tree.printer;
 
+/**
+ *
+ * @author MJ Lee
+ *
+ */
 public interface BinaryTreeInfo {
 	/**
 	 * who is the root node

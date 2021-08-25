@@ -1,13 +1,15 @@
 package com.it._03_linkedlist.linkedlist;
 
-import com.it.AbstractList;
+
+import com.it._03_linkedlist.AbstractList;
 
 /**
- * @author 龍
+ * @author code1997
  */
-public class DoubleLinkedList1<E> extends AbstractList<E> {
+public class DoubleLinkedList<E> extends AbstractList<E> {
 
     private Node<E> firstNode;
+
     private Node<E> lastNode;
 
     /**
@@ -18,7 +20,7 @@ public class DoubleLinkedList1<E> extends AbstractList<E> {
         E element;
         Node<E> next;
 
-        public Node(Node<E> prev,E element, Node<E> next) {
+        public Node(Node<E> prev, E element, Node<E> next) {
             this.prev = prev;
             this.element = element;
             this.next = next;
@@ -64,22 +66,21 @@ public class DoubleLinkedList1<E> extends AbstractList<E> {
     private Node<E> indexNode(int index) {
         //边界检查
         rangeCheck(index);
-        //当前节点指向头节点
+        //当前节点指向头节点：使用折半的方式来增加查找的性能
         Node<E> cur;
-        if (index < (size >>1)){
+        if (index < (size >> 1)) {
             cur = firstNode;
             //找到指定索引
             for (int i = 0; i < index; i++) {
                 cur = cur.next;
             }
-        }else {
+        } else {
             cur = lastNode;
             //找到指定索引，注意此处为>，而非>=。
-            for (int i = size-1; i > index  ; i--) {
+            for (int i = size - 1; i > index; i--) {
                 cur = cur.prev;
             }
         }
-
         return cur;
     }
 
@@ -88,29 +89,28 @@ public class DoubleLinkedList1<E> extends AbstractList<E> {
         rangeCheckAdd(index);
         if (index == size) {
             Node<E> oldLast = lastNode;
-            lastNode = new Node<>(oldLast , element, null);
+            lastNode = new Node<>(oldLast, element, null);
             //lastNode.prev.next=lastNode
-            if (oldLast == null ){
+            if (oldLast == null) {
                 //代表是第一个元素
                 firstNode = lastNode;
             } else {
                 //如果没有元素：oldLast == null;调用next会出现空指针异常。
                 oldLast.next = lastNode;
             }
-        }else {
+        } else {
             //正常情况下的指向。
-            Node<E> next=indexNode(index);
+            Node<E> next = indexNode(index);
             Node<E> prev = next.prev;
             Node<E> eNode = new Node<>(prev, element, next);
-            next.prev=eNode;
-            if (prev == null){
+            next.prev = eNode;
+            if (prev == null) {
                 //代表index==0
                 firstNode = eNode;
-            }else {
+            } else {
                 prev.next = eNode;
             }
         }
-
         //元素的个数++
         size++;
     }
@@ -122,13 +122,13 @@ public class DoubleLinkedList1<E> extends AbstractList<E> {
         Node<E> node = indexNode(index);
         Node<E> prev = node.prev;
         Node<E> next = node.next;
-        if (prev == null && next == null){
+        if (prev == null && next == null) {
             //说明只存在一个元素
             firstNode = null;
             lastNode = null;
-        }else {
+        } else {
             //说明存在多个元素
-            if (prev == null){
+            if (prev == null) {
                 //可以理解为index==0
                 next.prev = null;
                 firstNode = next;
@@ -136,10 +136,10 @@ public class DoubleLinkedList1<E> extends AbstractList<E> {
                 prev.next = next;
             }
 
-            if (next == null){
+            if (next == null) {
                 //可以等价：index==size-1
                 lastNode = prev;
-            }else {
+            } else {
                 next.prev = prev;
             }
         }
@@ -180,9 +180,9 @@ public class DoubleLinkedList1<E> extends AbstractList<E> {
             if (i != 0) {
                 builder.append(", ");
             }
-            builder.append(tempNode.prev != null ? tempNode.prev.element+"_" : "null"+"_");
-            builder.append(tempNode.element+"_");
-            builder.append(tempNode.next != null? tempNode.next.element : "null");
+            builder.append(tempNode.prev != null ? tempNode.prev.element + "_" : "null" + "_");
+            builder.append(tempNode.element + "_");
+            builder.append(tempNode.next != null ? tempNode.next.element : "null");
 
             tempNode = tempNode.next;
         }

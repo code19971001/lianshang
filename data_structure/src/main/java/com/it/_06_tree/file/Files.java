@@ -3,7 +3,11 @@ package com.it._06_tree.file;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-
+/**
+ *
+ * @author MJ Lee
+ *
+ */
 public class Files {
 	
 	public static void writeToFile(String filePath, Object data) {

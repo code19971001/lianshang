@@ -5,8 +5,8 @@ import java.util.List;
 
 /**
  * 栈的实现:
- *  1.继承ArrayList的方式，但是会存在多个stack不需要的接口。
- *  2.组合的方式:使stack持有list的引用。
+ *  1.继承ArrayList的方式，但是会存在多个stack不需要的接口，因此是有些冗余的。
+ *  2.组合的方式:使stack持有list的引用。可以对list的接口进行封装，
  * @author : code1997
  * @date :2021-03-2021/3/9 22:00
  */

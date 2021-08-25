@@ -1,9 +1,10 @@
 package com.it._03_linkedlist.linkedlist;
 
-import com.it.AbstractList;
+
+import com.it._03_linkedlist.AbstractList;
 
 /**
- * @author 龍
+ * @author code1997
  */
 public class SingleLinkedList2<E> extends AbstractList<E> {
 

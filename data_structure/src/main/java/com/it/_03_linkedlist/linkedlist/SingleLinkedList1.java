@@ -1,13 +1,23 @@
 package com.it._03_linkedlist.linkedlist;
 
-import com.it.AbstractList;
 
+import com.it._03_linkedlist.AbstractList;
+
+/**
+ * 单向链表的实现
+ * 对于get和set方法来说，外部关心的是node.element,而不是node节点，因此我们需要对封装一个方法来返回指定索引处的node节点，但是权限要设置为private
+ *
+ * @author code1997
+ */
 public class SingleLinkedList1<E> extends AbstractList<E> {
 
+    /**
+     * 头节点
+     */
     private Node<E> firstNode;
 
     /**
-     * 定义为静态内部类
+     * 定义为静态内部类，对于链表来说，元素存储在node节点中
      */
     private static class Node<E> {
         E element;
@@ -21,7 +31,7 @@ public class SingleLinkedList1<E> extends AbstractList<E> {
 
     @Override
     public void clear() {
-        //直接将头节点的的first指向null就可以
+        //直接将头节点的的first指向null就可以，gc会自动清理无用的哪些链表信息.
         firstNode = null;
     }
 
@@ -40,9 +50,6 @@ public class SingleLinkedList1<E> extends AbstractList<E> {
 
     /**
      * 根据索引，返回指定的node节点
-     *
-     * @param index：指定的索引
-     * @return ：索引处的node节点
      */
     private Node<E> indexNode(int index) {
         //边界检查
@@ -60,7 +67,7 @@ public class SingleLinkedList1<E> extends AbstractList<E> {
     public void add(int index, E element) {
         rangeCheckAdd(index);
         if (index == 0) {
-            //firstNode.next=new Node<>(element,firstNode.next);
+            //对于第一个node节点来说，需要特殊处理，因为是第一个元素
             firstNode = new Node<>(element, firstNode);
         } else {
             //获取添加索引处的前一个节点

@@ -1,8 +1,9 @@
 package com.it._06_tree.bst;
 
-import com.it.bean.Person;
-import com.it.file.Files;
-import com.it.printer.BinaryTrees;
+
+import com.it._06_tree.bean.Person;
+import com.it._06_tree.file.Files;
+import com.it._06_tree.printer.BinaryTrees;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ public class BSTTest {
         BinaryTrees.println(tree);
         Files.writeToFile("src/main/resources/bst.txt", BinaryTrees.printString(tree));
     }
+
     @Test
     public void testBinarySearchTree3() {
         Integer[] data = {7, 4, 9, 2, 5, 8, 11, 3, 12, 1};
@@ -70,19 +72,21 @@ public class BSTTest {
         tree.levelOrder(new BinarySearchTree.Visitor<Integer>() {
             @Override
             public void visit(Integer element) {
-                System.out.println("--"+element);
+                System.out.println("--" + element);
             }
         });
     }
+
     @Test
     public void testBinarySearchTree4() {
-        Integer[] data = {7, 4, 2, 1, 3,  5, 9, 8, 11, 10, 12};
+        Integer[] data = {7, 4, 2, 1, 3, 5, 9, 8, 11, 10, 12};
         BinarySearchTree<Integer> tree = new BinarySearchTree<>();
         Arrays.stream(data).forEach(tree::add);
         BinaryTrees.println(tree);
         System.out.println(tree.toString());
 
     }
+
     @Test
     public void testBinarySearchTreeHeight() {
         BinarySearchTree<Integer> tree = new BinarySearchTree<>();
@@ -92,30 +96,30 @@ public class BSTTest {
         }
         data.forEach(tree::add);
         BinaryTrees.println(tree);
-        System.out.println("树的高度为："+tree.height());
-        System.out.println("树的高度为："+tree.height2());
+        System.out.println("树的高度为：" + tree.height());
+        System.out.println("树的高度为：" + tree.height2());
 
     }
+
     @Test
     public void testBinarySearchTreeIsComplete() {
         BinarySearchTree<Integer> tree = new BinarySearchTree<>();
-        List<Integer> data = Arrays.asList(7,4,9,2,5);
+        List<Integer> data = Arrays.asList(7, 4, 9, 2, 5);
         data.forEach(tree::add);
         BinaryTrees.println(tree);
-        System.out.println("是否是完全二叉树："+tree.isComplete());
-        System.out.println("是否是完全二叉树："+tree.isComplete2());
+        System.out.println("是否是完全二叉树：" + tree.isComplete());
+        System.out.println("是否是完全二叉树：" + tree.isComplete2());
     }
+
     @Test
     public void testBinarySearchTreeRemove() {
         BinarySearchTree<Integer> tree = new BinarySearchTree<>();
-        List<Integer> data = Arrays.asList(7,4,9,2,5,8,11,3,12,1);
+        List<Integer> data = Arrays.asList(7, 4, 9, 2, 5, 8, 11, 3, 12, 1);
         data.forEach(tree::add);
         BinaryTrees.println(tree);
         tree.remove(9);
         BinaryTrees.println(tree);
     }
-
-
 
 
 }

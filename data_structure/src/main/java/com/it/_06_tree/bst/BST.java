@@ -1,6 +1,7 @@
 package com.it._06_tree.bst;
 
-import com.it.BinaryTree;
+
+import com.it._06_tree.BinaryTree;
 
 import java.util.Comparator;
 import java.util.logging.Logger;
@@ -136,7 +137,9 @@ public class BST<E> extends BinaryTree<E> {
         }
         size--;
     }
-    protected void afterRemove(Node<E> node){}
+
+    protected void afterRemove(Node<E> node) {
+    }
 
     /**
      * 根据元素找到节点

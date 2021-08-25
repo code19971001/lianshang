@@ -1,6 +1,7 @@
 package com.it._06_tree;
 
-import com.it.printer.BinaryTreeInfo;
+
+import com.it._06_tree.printer.BinaryTreeInfo;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -28,16 +29,15 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         }
 
         //兄弟节点
-        public Node<E> sibling(){
-            if (isLeftChild()){
+        public Node<E> sibling() {
+            if (isLeftChild()) {
                 return parent.rightChild;
             }
-            if (isRightChild()){
+            if (isRightChild()) {
                 return parent.leftChild;
             }
             return null;
         }
-
 
 
         public Node(E element, Node<E> parent) {
@@ -48,10 +48,10 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         @Override
         public String toString() {
             String parentString = "null";
-            if (parent!=null){
+            if (parent != null) {
                 parentString = parent.element.toString();
             }
-            return element+"_P("+parentString+")";
+            return element + "_P(" + parentString + ")";
         }
 
         public boolean isLeaf() {

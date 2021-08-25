@@ -1,5 +1,8 @@
 package com.it._03_linkedlist;
 
+/**
+ * @author code1997
+ */
 public abstract class AbstractList<E> implements List<E> {
 
     protected int size;
@@ -10,7 +13,6 @@ public abstract class AbstractList<E> implements List<E> {
 
     protected void rangeCheck(int index) {
         if (index < 0 || index >= size) {
-            //抛出数组下标越界异常
             outOfBounds(index);
         }
     }
