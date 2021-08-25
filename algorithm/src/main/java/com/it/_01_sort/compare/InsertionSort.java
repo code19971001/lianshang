@@ -1,6 +1,7 @@
 package com.it._01_sort.compare;
 
-import com.it.Sort;
+
+import com.it._01_sort.Sort;
 import com.it.tools.Integers;
 
 /**

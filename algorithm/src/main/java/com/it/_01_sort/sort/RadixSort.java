@@ -1,6 +1,7 @@
 package com.it._01_sort.sort;
 
-import com.it.Sort;
+
+import com.it._01_sort.Sort;
 
 /**
  * 基数排序：非常适合于整数排序，尤其是非负整数。

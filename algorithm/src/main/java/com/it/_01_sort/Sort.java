@@ -1,9 +1,10 @@
 package com.it._01_sort;
 
-import com.it.bean.Student;
-import com.it.compare.ShellSort;
-import com.it.sort.CountingSort;
-import com.it.sort.RadixSort;
+
+import com.it._01_sort.bean.Student;
+import com.it._01_sort.compare.ShellSort;
+import com.it._01_sort.sort.CountingSort;
+import com.it._01_sort.sort.RadixSort;
 
 import java.text.DecimalFormat;
 

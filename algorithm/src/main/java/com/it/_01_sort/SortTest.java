@@ -1,9 +1,10 @@
 package com.it._01_sort;
 
-import com.it.compare.*;
-import com.it.sort.BucketSort;
-import com.it.sort.CountingSort;
-import com.it.sort.RadixSort;
+
+import com.it._01_sort.compare.*;
+import com.it._01_sort.sort.BucketSort;
+import com.it._01_sort.sort.CountingSort;
+import com.it._01_sort.sort.RadixSort;
 import com.it.tools.Asserts;
 import com.it.tools.Integers;
 import org.junit.Test;

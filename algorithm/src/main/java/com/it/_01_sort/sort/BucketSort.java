@@ -1,6 +1,6 @@
 package com.it._01_sort.sort;
 
-import com.it.Sort;
+import com.it._01_sort.Sort;
 
 import java.util.LinkedList;
 import java.util.List;
