@@ -15,6 +15,7 @@ public class _1_TwoSum {
 
     /**
      * hash表：时间复杂度O(nlogn)
+     * 本解法的时间复杂度为O(n),需要遍历一遍
      */
     public static int[] twoSum(int[] nums, int target) {
         //遍历一边将nums加入到map中去
