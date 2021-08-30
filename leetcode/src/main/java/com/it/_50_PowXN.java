@@ -5,8 +5,8 @@ package com.it;
  * <p>
  * 快速幂(分治)的思想:
  * eg: 3^20 = 3^10 * 3^10  3^21 = 3^10 * 3^10 * 3^10
- *
- *
+ * <p>
+ * <p>
  * 疑问：设计一个算法，求x^y%z,也可以使用这种方式来求解。
  *
  * @author : code1997
@@ -55,4 +55,55 @@ public class _50_PowXN {
         }
         return n < 0 ? 1 / res : res;
     }
+
+    /**
+     * 快速幂扩展：求 x^y%z
+     * 注意：如果x,y比较大的时候就可能会出现溢出的情况.就算我们res改为long也可能会存在溢出的问题.
+     * 公式：(a*b)%p == ((a%p)*(b%p))%p
+     */
+    public int myMod1(int x, int y, int z) {
+        if (x < 0 || y < 0 || z == 0) {
+            return 0;
+        }
+        //为了更加的简洁，可以提前%z.
+        int res = 1 % z;
+        x %= z;
+        while (y > 0) {
+            if ((y & 1) == 1) {
+                //res *= x;
+                res = (res * x) % z;
+            }
+            //x *= x;
+            x = (x * x) % z;
+            //舍弃最后一个二进制位
+            y >>= 1;
+        }
+        return res % z;
+    }
+
+    /**
+     * 快速幂扩展：求 x^y%z , 使用递归的方式
+     * 注意：如果x,y比较大的时候就可能会出现溢出的情况.就算我们res改为long也可能会存在溢出的问题.
+     * 公式：(a*b)%p == ((a%p)*(b%p))%p
+     */
+    public int myMod2(int x, int y, int z) {
+        if (y == 0) {
+            //终止条件
+            return 1 % z;
+        }
+        int half = myMod2(x, y >> 1, z);
+        half *= half;
+        if ((y & 1) == 0) {
+            //偶数
+            return half % z;
+        } else {
+            //基数
+            return (half * (x % z)) % z;
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new _50_PowXN().myMod2(123, 456, 789));
+    }
+
 }
