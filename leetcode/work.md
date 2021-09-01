@@ -604,13 +604,527 @@ link：https://leetcode-cn.com/problems/longest-palindromic-substring/
     }
 ```
 
+### 3 树
+
+> 对于二叉树相关的题，递归是非常常见的解题手段
+
+##### 1 二叉树的最近公共祖先
+
+描述：给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。
+
+百度百科中最近公共祖先的定义为：“对于有根树 T 的两个节点 p、q，最近公共祖先表示为一个节点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”
+
+link：https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree
+
+题解：
+
+方法一：
+
+```java
+/**
+ * p和q的公共祖先存在三种情况
+ * 1)p,q在两边，最近公共祖先是根节点。
+ * 2)p,q在一边，最近公共祖先必定在一边。
+ */
+public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
+    if (root == null || root == p || root == q) {
+        return root;
+    }
+    //去root的leftChild去找公共祖先
+    TreeNode leftParentNode = lowestCommonAncestor2(root.left, p, q);
+    //去root的leftChild去找公共祖先
+    TreeNode rightParentNode = lowestCommonAncestor2(root.right, p, q);
+    if (leftParentNode != null && rightParentNode != null) {
+        return root;
+    }
+    return leftParentNode != null ? leftParentNode : rightParentNode;
+}
+```
+
+##### 2 恢复二叉搜索树
+
+给你二叉搜索树的根节点 root ，该树中的两个节点被错误地交换。请在不改变其结构的情况下，恢复这棵树。
+
+链接：https://leetcode-cn.com/problems/recover-binary-search-tree
+
+```java
+package com.it;
+
+/**
+ * 给你二叉搜索树的根节点 root ，该树中的两个节点被错误地交换。请在不改变其结构的情况下，恢复这棵树。
+ * 进阶：使用 O(n) 空间复杂度的解法很容易实现。你能想出一个只使用常数空间的解决方案吗？使用morris实现O(1)级别的空间复杂度对二叉树的遍历。
+ * link:https://leetcode-cn.com/problems/recover-binary-search-tree
+ *
+ * @author : code1997
+ * @date : 2021/8/23 0:02
+ */
+public class _99_RecoverBinarySearchTree {
+
+    private TreeNode preNode;
+
+    private TreeNode firstNode;
+
+    private TreeNode secondNode;
+
+    /**
+     * 核心：中序是升序的特点，
+     * 1）如果被交换的两个节点是挨在一起的，则中序遍历之后只存在一个逆序对。
+     * 2）如果被交换的两个节点不是挨在一起的，则中序遍历之后，存在两个逆序对。
+     * 3）无论是一个或者两个逆序对，实际上我们我们要找的错误节点就是：第一个逆序对中较大的节点，第二个逆序对中较小二点节点。
+     */
+    public void recoverTree(TreeNode root) {
+        //findWrongNodes(root);
+        morris(root);
+        //交换两个错误的节点的值
+        swap(firstNode, secondNode);
+    }
+
+    /**
+     * 中序遍历
+     */
+    private void findWrongNodes(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        findWrongNodes(root.left);
+        find(root);
+        findWrongNodes(root.right);
+    }
+
+    private void find(TreeNode root) {
+        if (preNode != null && preNode.val > root.val) {
+            //无论是存在几个逆序对都不会出现什么问题：总是保存逆序对中比较小的值。
+            secondNode = root;
+            //firstNode只能是第一个逆序对中比较大的值，不可以再次被覆盖。
+            if (firstNode != null) {
+                return;
+            }
+            firstNode = preNode;
+        }
+        //需要保留上一次便利的节点
+        preNode = root;
+        return;
+    }
+
+    private void swap(TreeNode firstNode, TreeNode secondNode) {
+        int temp = firstNode.val;
+        firstNode.val = secondNode.val;
+        secondNode.val = temp;
+    }
+
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+}
+```
+
+进阶：使用 O(n) 空间复杂度的解法很容易实现。你能想出一个只使用常数空间的解决方案吗？
+
+来源：力扣（LeetCode）
+
+```java
+/**
+ * 使用morris可以实现二叉树的遍历的时间复杂度为O(n)，空间复杂度为O(1).也被称为线索二叉树，线索指的是只想前驱或者后继。
+ * 执行步骤：假设遍历到当前节点是N
+ * ①如果N.left!=null,找到N的前驱节点p.
+ * 如果p.right == null,那么令P.right=N,N=N.left.回到①
+ * 如果P.right == N,那么p.right=null,打印N,N=N.right.回到①
+ * 如果N.left==null，打印N,N=N.right.回到①
+ */
+private void morris(TreeNode root) {
+    if (root == null) {
+        return;
+    }
+    while (root != null) {
+        if (root.left != null) {
+            //找到当前节点的前驱节点
+            TreeNode precursor = root.left;
+            while (precursor.right != null && precursor.right != root) {
+                precursor = precursor.right;
+            }
+            if (precursor.right == null) {
+                precursor.right = root;
+                root = root.left;
+            } else {
+                //precursor.rightChild == node
+                precursor.right = null;
+                find(root);
+                root = root.right;
+            }
+        } else {
+            find(root);
+            root = root.right;
+        }
+    }
+}
+```
+
+##### 3 最大BST子树
+
+给定一个二叉树，找到其中最大的二叉搜索树(BST)子树，其中最大指的是子树节点数最多的。
+
+思路：以自底向上的方式来实现<--后续遍历，先判断左右节点是否是二叉搜索树，然后再去确定上层是否是二叉搜索树。
+
+定义一个TreeInfo来辅助：
+
+```java
+    private static class TreeInfo {
+        TreeNode root;
+        int size;
+        /**
+         * max和min主要用来判断其父节点是否是BST
+         */
+        int max;
+        int min;
+
+        public TreeInfo(TreeNode root, int size, int max, int min) {
+            this.root = root;
+            this.size = size;
+            this.max = max;
+            this.min = min;
+        }
+    }
+```
+
+- 以root节点为跟根节点的二叉树就是一颗BST子树的条件：
+  - 左右子树不为空且分别为最大bst子树，当前节点的值处于两者之间。
+  - 左子树为null，右子树不为null且为最大bst子树，当前节点的值小于右子树节点的值。
+  - 当前节点的左右子树的值都为null。
+
+题解：
+
+```java
+/**
+     * 采用自顶向下的方式实现:实际上就是前序遍历的变种。
+     * 但是我们发现是可以进行优化的，采用自底向上的方式进行遍历，也就是后序遍历
+     */
+    public int largestBSTSubtree(TreeNode root) {
+        return root == null ? 0 : getInfo(root).size;
+    }
+
+    /**
+     * 返回以node为根节点的二叉树的最大BST子树信息。
+     * 使用后序遍历的方式
+     */
+    private TreeInfo getInfo(TreeNode root) {
+        //如果根节点是null，那么值就是null
+        if (root == null) {
+            return null;
+        }
+        TreeInfo li = getInfo(root.left);
+        TreeInfo ri = getInfo(root.right);
+        int leftBstSize = -1, rightBstSize = -1, max = root.val, min = root.val;
+        //li和ri必须符合条件之一才可以算作是BST，因此leftBstSize，rightBstSize的初始值十分重要
+        if (li == null) {
+            leftBstSize = 0;
+        } else if (li.root == root.left && root.val > li.max) {
+            leftBstSize = li.size;
+            min = li.min;
+        }
+        if (ri == null) {
+            rightBstSize = 0;
+        } else if (ri.root == root.left && root.val < li.max) {
+            rightBstSize = ri.size;
+            max = ri.max;
+        }
+        if (leftBstSize >= 0 && rightBstSize >= 0) {
+            //以root为根节点的二叉树就是BST
+            return new TreeInfo(root, leftBstSize + rightBstSize + 1, max, min);
+        }
+        //以root为根节点的树不是BST
+        if (li != null && ri != null) {
+            //左右节点都为null
+            return li.size > ri.size ? li : ri;
+        }
+        //左右节点其中一个为空
+        return li != null ? li : ri;
+    }
+
+    private static class TreeInfo {
+        TreeNode root;
+        int size;
+        /**
+         * max和min主要用来判断其父节点是否是BST
+         */
+        int max;
+        int min;
+
+        public TreeInfo(TreeNode root, int size, int max, int min) {
+            this.root = root;
+            this.size = size;
+            this.max = max;
+            this.min = min;
+        }
+    }
+
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+```
+
+### DFS
+
+> 深度优先搜索：很多排列组合相关的问题，都可以通过DFS实现。
+>
+> DFS的概念：回溯+剪枝
+>
+> 关键：
+>
+> - 找层的概念。
+> - 当钻到了不可以再钻的层级的时候，就是保存答案的时候。
+> - 每一层可以枚举出可以原则的点。
+
+##### 1 电话号码的字母组合
+
+给定一个仅包含数字 `2-9` 的字符串，返回所有它能表示的字母组合。答案可以按 **任意顺序** 返回，注意1对应任何字母。
+
+成员变量版本：
+
+```java
+    char[] chars;
+    List<String> list;
+    private char[] selectedLetter;
+
+    char[][] lettersArray = {{'a', 'b', 'c'}, {'d', 'e', 'f'}, {'g', 'h', 'i'},
+            {'j', 'k', 'l'}, {'m', 'n', 'o'}, {'p', 'q', 'r', 's'},
+            {'t', 'u', 'v'}, {'w', 'x', 'y', 'z'}};
+
+    /**
+     * 使用递归来解决。
+     */
+    public List<String> letterCombinations(String digits) {
+        list = new ArrayList<>();
+        if (digits == null || digits.length() == 0) {
+            return list;
+        }
+        chars = digits.toCharArray();
+        selectedLetter = new char[chars.length];
+        dfs(0);
+        return list;
+    }
+
+    /**
+     * 搜索第idx层
+     * 一般开头写终止条件的判断
+     */
+    private void dfs(int idx) {
+        if (idx == chars.length) {
+            //已经进入到了最后一层，得到了一个正确的解
+            list.add(new String(selectedLetter));
+            return;
+        }
+        char digit = chars[idx];
+        //该层可以做的选择
+        char[] letters = lettersArray[digit - '2'];
+        //遍历进入下层
+        for (char letter : letters) {
+            //将进入下一层之前，先将值存储起来
+            selectedLetter[idx] = letter;
+            dfs(idx + 1);
+        }
+    }
+```
+
+局部遍历版本：
+
+```java
+    char[][] lettersArray = {{'a', 'b', 'c'}, {'d', 'e', 'f'}, {'g', 'h', 'i'},
+            {'j', 'k', 'l'}, {'m', 'n', 'o'}, {'p', 'q', 'r', 's'},
+            {'t', 'u', 'v'}, {'w', 'x', 'y', 'z'}};
+
+    /**
+     * 使用递归来解决。
+     */
+    public List<String> letterCombinations(String digits) {
+        List<String> list = new ArrayList<>();
+        if (digits == null || digits.length() == 0) {
+            return list;
+        }
+        char[] chars = digits.toCharArray();
+        char[] selectedLetter = new char[chars.length];
+        dfs(0, chars, selectedLetter, list);
+        return list;
+    }
+
+    /**
+     * 搜索第idx层
+     * 一般开头写终止条件的判断
+     */
+    private void dfs(int idx, char[] chars, char[] selectedLetter, List<String> list) {
+        if (idx == chars.length) {
+            //已经进入到了最后一层，得到了一个正确的解
+            list.add(new String(selectedLetter));
+            return;
+        }
+        char digit = chars[idx];
+        //该层可以做的选择
+        char[] letters = lettersArray[digit - '2'];
+        //遍历进入下层
+        for (char letter : letters) {
+            //将进入下一层之前，先将值存储起来
+            selectedLetter[idx] = letter;
+            dfs(idx + 1, chars, selectedLetter, list);
+        }
+    }
+```
+
+##### 2 全排列
+
+##### 3 全排列Ⅱ
+
+##### 4 括号生成
+
+描述：数字 `n` 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 **有效的** 括号组合。
+
+有效括号组合需满足：左括号必须以正确的顺序闭合。
+
+题解：
+
+```java
+    public List<String> generateParenthesis(int n) {
+        List<String> list = new ArrayList<>();
+        if (n < 0) {
+            return list;
+        }
+        if (n == 0) {
+            list.add("");
+            return list;
+        }
+        dfs(0, n, n, new char[n << 1], list);
+        return list;
+    }
+
+    /**
+     * 当左右括号数量相等的时候，我们只可以选择左括号.
+     * 1）什么时候可以选择左括号？只要左括号的数量大于0.
+     * 2）什么时候可以选择右括号？右括号的数量大于0并且左右括号的数量不一样.
+     * 3）每进入一层都需要知道左右括号剩下多少
+     */
+    private void dfs(int idx, int leftRemain, int rightRemain, char[] string, List<String> list) {
+        if (string.length == idx) {
+            //判断是否合法，如何合法就添加到list中去.
+            list.add(new String(string));
+            return;
+        }
+        //枚举这一层所有可能的选择(常规写法是直接for循环即可，但是这里选择性太小，没有必要进行for循环)，然后选择一个值，进入下一层.
+        if (leftRemain > 0) {
+            string[idx] = '(';
+            dfs(idx + 1, leftRemain - 1, rightRemain, string, list);
+        }
+        if (rightRemain > 0 && leftRemain != rightRemain) {
+            string[idx] = ')';
+            dfs(idx + 1, leftRemain, rightRemain - 1, string, list);
+        }
+    }
+```
+
+##### 习题
+
+
+
+- 51.N皇后问题
+
+- 52.N皇后问题Ⅱ
+
+- 112.路径总和
+
+- 113.路径综合Ⅱ
+
+  ```java
+     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+          List<List<Integer>> list = new ArrayList<>();
+          if (root == null) {
+              return list;
+          }
+          dfs(root, list, targetSum, new ArrayList<>());
+          return list;
+      }
+  
+      private void dfs(TreeNode treeNode, List<List<Integer>> list, int targetSum, List<Integer> nums) {
+          if (treeNode == null) {
+              return;
+          }
+          targetSum -= treeNode.val;
+          nums.add(treeNode.val);
+          if (treeNode.left == null && treeNode.right == null) {
+              //说明到了叶子节点,判断值的和
+              if (targetSum == 0) {
+                  list.add(new ArrayList<>(nums));
+              }
+          } else {
+              dfs(treeNode.left, list, targetSum, nums);
+              dfs(treeNode.right, list, targetSum, nums);
+          }
+          //恢复现场
+          nums.remove(nums.size() - 1);
+      }
+  
+      public class TreeNode {
+          int val;
+          TreeNode left;
+          TreeNode right;
+  
+          TreeNode() {
+          }
+  
+          TreeNode(int val) {
+              this.val = val;
+          }
+  
+          TreeNode(int val, TreeNode left, TreeNode right) {
+              this.val = val;
+              this.left = left;
+              this.right = right;
+          }
+      }
+  ```
+
+- 39.组合总和
+
+  ```java
+  ```
+
+  
+
+
+
 
 
 ### 习题列表：
 
+##### 动态规划
+
 - 1143
-
-
 
 - 53
 - 322
@@ -628,3 +1142,92 @@ link：https://leetcode-cn.com/problems/longest-palindromic-substring/
 - 943
 - 516
 - 376
+
+##### 树
+
+- 94
+- 98
+- 230
+- 101
+- 108
+- 102
+- 104
+- 105
+- 106
+- 297
+- 449
+
+
+
+### 小总结：
+
+##### 数组
+
+- 88：合并两个有序数组
+- 75：颜色分类
+- 16：部分排序
+
+##### 链表
+
+- 203：移除链表元素
+- 2：两数相加
+- 160：相交链表
+- 86：分隔链表
+- 234：回文链表
+
+##### 栈+队列
+
+- 155：最小栈
+- 239：滑动窗口最大值
+- 654：最大二叉树
+- 739：每日温度
+
+##### 字符串
+
+- 9：字符串轮转
+- 572：另一个树的子树
+- 242：有效的字母异位词
+- 151：翻转字符串里的单词
+- 3：无重复字符的最长字串
+
+##### 动态规划
+
+- 47：全排列Ⅱ
+- 121：买卖的最佳时机
+- 72：编辑距离
+- 5：最长回文字串
+
+##### 二叉树
+
+- 236：二叉树的最近公共祖先
+- 99：恢复二叉搜索树
+- 333：最大BST子树
+
+##### DFS
+
+- 17：电话号码的字母组合
+- 46：全排列
+- 47：全排列Ⅱ
+- 22：括号生成
+
+##### 高频
+
+- 283：移动零
+- 1：两数之和
+- 15：三数之和
+- 50：Pow(x,n)
+- 62：圆圈中最后剩下的数字
+- 54：螺旋矩阵
+- 146：LRU缓存机制
+- 7：整数反转
+- 252：会议室
+- 253：会议室Ⅱ
+- 11：盛最多水的容器
+- 42：接雨水
+
+
+
+
+
+
+

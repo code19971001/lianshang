@@ -15,8 +15,6 @@ b
 2leetcode/src/main/java/com/it/printer/Printer.java,5\4\54997013e24eb15486a85694c18245e8a8dcac31
 k
 ;leetcode/src/main/java/com/it/_121_GoodTimeToBuyOrSell.java,c\b\cb7ff9d9347b1f05ca0b3f53d77488f734189606
-A
-leetcode/week1.md,4\a\4ab1d67e55abc4aa89295bb9de93d8d8bf8a186b
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
