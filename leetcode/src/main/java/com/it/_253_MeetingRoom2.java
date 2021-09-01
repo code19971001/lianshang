@@ -69,8 +69,36 @@ public class _253_MeetingRoom2 {
         return heap.size();
     }
 
+    /**
+     * 方法3：对开始时间和结束时间分别进行排序
+     */
+    public int minMeetingRooms3(int[][] intervals) {
+        if (intervals == null || intervals.length == 0) {
+            return 0;
+        }
+        int[] startTimes = new int[intervals.length];
+        int[] endTimes = new int[intervals.length];
+        for (int i = 0; i < intervals.length; i++) {
+            startTimes[i] = intervals[i][0];
+            endTimes[i] = intervals[i][1];
+        }
+        Arrays.sort(startTimes);
+        Arrays.sort(endTimes);
+        int rooms = 0;
+        int endIndex = 0;
+        for (int startTime : startTimes) {
+            if (startTime < endTimes[endIndex]) {
+                rooms++;
+            } else {
+                endIndex++;
+            }
+        }
+        return rooms;
+    }
+
     public static void main(String[] args) {
         System.out.println(new _253_MeetingRoom2().minMeetingRooms(new int[][]{{0, 6}, {4, 14}, {8, 24}, {16, 22}, {20, 26}}));
         System.out.println(new _253_MeetingRoom2().minMeetingRooms2(new int[][]{{0, 6}, {4, 14}, {8, 24}, {16, 22}, {20, 26}}));
+        System.out.println(new _253_MeetingRoom2().minMeetingRooms3(new int[][]{{0, 6}, {4, 14}, {8, 24}, {16, 22}, {20, 26}}));
     }
 }
