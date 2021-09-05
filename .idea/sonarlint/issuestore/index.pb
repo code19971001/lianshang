@@ -1,6 +1,4 @@
 
-{
-Kleetcode/src/main/java/com/it/_82_删除排序链表中的重复元素.java,6\8\6829e304d9dc6d16a15c2d9178734863c4d738b5
 i
 9leetcode/src/main/java/com/it/printer/BinaryTreeInfo.java,1\9\1919c4f71117012923408b220281a20ce0a0906f
 i
