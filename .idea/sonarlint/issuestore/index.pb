@@ -256,8 +256,6 @@ e
 5leetcode/src/main/java/com/it/_39_CombinationSum.java,3\0\3049e847c08a3ae7a26fbf1eb022fae638a3ccbd
 n
 >algorithm/src/main/java/com/it/_01_sort/compare/QuickSort.java,0\0\00e819eeb310fd68fdd5f512f1418b4c8181dffc
-\
-,leetcode/src/main/java/com/it/_1_TwoSum.java,9\5\95dac1853e9a3379fed9acf22c083a5927c3edfc
 _
 /leetcode/src/main/java/com/it/_15_ThreeSum.java,8\2\820904e7d83d7844716d81a684eac5b51f1c441d
 b
@@ -270,8 +268,6 @@ l
 ,leetcode/src/main/java/com/it/_50_PowXN.java,2\0\204c2bbb101a5885383dee5e0e24b1e84f5b69e4
 d
 4leetcode/src/main/java/com/it/_offer_62_LastNum.java,7\f\7f0a7558ff92988095f7cbabcdffa8d126ae3f39
-c
-3leetcode/src/main/java/com/it/_54_SpiralMatrix.java,e\2\e224408ab122a4ae2c8b13b6519e95b941e1c81e
 @
 leetcode/pom.xml,3\5\35a4d0f8cfd4c29a0ec98a70e4e2151ffd2028b1
 d
@@ -288,3 +284,11 @@ d
 4leetcode/src/main/java/com/it/_253_MeetingRoom2.java,8\e\8ef0301110505f35cad2453dc9b1b36f63a2ff7d
 c
 3leetcode/src/main/java/com/it/_42_MostestRainy.java,7\b\7bda534f297a3c3852a4563f5a974f778891b07c
+j
+:leetcode/src/main/java/com/it/_offer_22_GetKthFromEnd.java,b\0\b09af70f0295797c18a4d532fa1a87e0bd24ffe2
+a
+1leetcode/src/main/java/com/it/_88_MargeArray.java,7\7\77afae1c2961839dba3b94e3f560f1ca7297a2cf
+a
+1leetcode/src/main/java/com/it/_75_SortColors.java,3\b\3bae650c44047895ace22f7136e99f08e3add961
+e
+5leetcode/src/main/java/com/it/meeting_16_SubSort.java,c\5\c56336f024cd326862ef8556ad256351c9b3ca31

@@ -9,7 +9,7 @@ import com.it.list.ListNode;
 public class _150_IntersectionTwoLinked {
 
     /**
-     * 将两个链表分别加入到对方的后面，如此两个链表的长度就相等了.
+     * 将两个链表改造成相同长度，将两个链表分别加入到对方的后面.
      */
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         if (headA == null || headB == null) {

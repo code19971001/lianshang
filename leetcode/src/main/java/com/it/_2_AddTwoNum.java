@@ -8,6 +8,9 @@ import com.it.list.ListNode;
  */
 public class _2_AddTwoNum {
 
+    /**
+     * 需要注意对于链表长度和进位
+     */
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         if (l1 == null) {
             return l2;
