@@ -37,6 +37,31 @@ public class _1221_SplitString {
     }
 
     /**
+     * 使用一个变量代替栈
+     */
+    public int balancedStringSplit2(String s) {
+        if (s == null || s.length() < 2) {
+            return 0;
+        }
+        int res = 0;
+        //统计L的数量
+        int cnt = 0;
+        char[] chars = s.toCharArray();
+        for (char aChar : chars) {
+            //判断当前元素与栈顶是否是平衡字符串
+            if (aChar == 'L') {
+                cnt++;
+            } else {
+                cnt--;
+            }
+            if (cnt == 0) {
+                res++;
+            }
+        }
+        return res;
+    }
+
+    /**
      * 平衡字符串：c1!=null,c2!=null,c1!=c2
      */
     private boolean isBalanceStr(Character c1, Character c2) {
