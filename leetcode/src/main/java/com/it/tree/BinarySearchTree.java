@@ -17,6 +17,7 @@ import java.util.logging.Logger;
  * @date :2021-03-2021/3/15 10:48
  */
 public class BinarySearchTree<E> implements BinaryTreeInfo {
+
     private Logger logger = Logger.getLogger("logger");
     private int size;
     protected Node<E> root;
