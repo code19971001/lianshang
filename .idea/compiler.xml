@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="leetcode" />
         <module name="data_structure" />
+        <module name="zuo_code" />
         <module name="commons" />
         <module name="algorithm" />
       </profile>
