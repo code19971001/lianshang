@@ -1,5 +1,10 @@
 package com.it._01_complexity;
 
+/**
+ * 求第n个斐波那契数。
+ *
+ * @author code1997
+ */
 public class FibDemo {
     /**
      * 求第n个斐波那契数：1 1 2 3 5 8 13
