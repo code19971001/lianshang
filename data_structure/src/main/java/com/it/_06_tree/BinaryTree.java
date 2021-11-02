@@ -11,6 +11,7 @@ import java.util.Queue;
  * @date :2021-03-2021/3/20 19:34
  */
 public class BinaryTree<E> implements BinaryTreeInfo {
+
     protected int size;
     protected Node<E> root;
 
@@ -36,6 +37,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
             if (isRightChild()) {
                 return parent.leftChild;
             }
+            //如果不是左/右节点，是叶子节点，所以肯定没有兄弟节点。
             return null;
         }
 
@@ -55,7 +57,6 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         }
 
         public boolean isLeaf() {
-
             return this.leftChild == null && this.rightChild == null;
         }
 
@@ -213,9 +214,10 @@ public class BinaryTree<E> implements BinaryTreeInfo {
      */
     protected Node<E> successor(Node<E> node) {
         if (node == null) {
-            return node;
+            return null;
         }
         if (node.rightChild != null) {
+            //如果存在右子节点，那么后继节点肯定是当前节点的右子节点的最左子节点
             Node<E> tempNode = node.rightChild;
             while (tempNode.leftChild != null) {
                 tempNode = tempNode.leftChild;
