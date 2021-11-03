@@ -17,7 +17,9 @@ import java.util.logging.Logger;
  * @date :2021-03-2021/3/15 10:48
  */
 public class BinarySearchTree<E> implements BinaryTreeInfo {
-    private Logger logger = Logger.getLogger("logger");
+
+    private Logger logger = Logger.getLogger(BinarySearchTree.class.getName());
+
     private int size;
     private Node<E> root;
     private Comparator<E> comparator;
@@ -347,6 +349,10 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
         return ((Node<E>) node).element + "_" + parentString;
     }
 
+    /**
+     * 利用前序遍历实现树状打印二叉树.
+     * 注意这里的处理思路.
+     */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -365,20 +371,20 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
     }
 
     /**
-     * 前序遍历
+     * 前序遍历:根节点->左子节点->右子节点
      */
     public void preorderTraversal() {
         preorderTraversal(root);
     }
 
     private void preorderTraversal(Node<E> node) {
+        //终止条件
         if (node == null) {
             return;
         }
         System.out.print(node.element + "\t");
         preorderTraversal(node.leftChild);
         preorderTraversal(node.rightChild);
-
     }
 
     /**
@@ -416,7 +422,7 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
     }
 
     /**
-     * 层序遍历:使用队列实现，将
+     * 层序遍历:使用队列实现.
      */
     public void levelOrderTraversal() {
         if (root == null) {
@@ -438,11 +444,9 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
     }
 
 
-    public static interface Visitor<E> {
+    public interface Visitor<E> {
         /**
          * 实现访问的具体操作
-         *
-         * @param element ：返回的元素。
          */
         void visit(E element);
     }

@@ -88,8 +88,10 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         return height(root);
     }
 
-    //递归
-    private int height(Node<E> node) {
+    /**
+     * 递归实现
+     */
+    protected int height(Node<E> node) {
         if (node == null) {
             return 0;
         }
@@ -115,6 +117,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
             if (tempNode.rightChild != null) {
                 queue.offer(tempNode.rightChild);
             }
+            //我们要做的事情
             if (levelSize == 0) {
                 //说明要访问下一层
                 levelSize = queue.size();
