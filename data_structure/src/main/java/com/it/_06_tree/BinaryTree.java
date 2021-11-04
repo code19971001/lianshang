@@ -9,6 +9,10 @@ import java.util.Queue;
 /**
  * @author : code1997
  * @date :2021-03-2021/3/20 19:34
+ * <p>
+ * 如果我们看到一颗二叉搜索树是完全二叉树，我们想要还原这棵树，只需要对这棵树进行层序遍历即可.
+ * 重构二叉树：中序遍历+前/后序遍历。中序遍历的意义在于可以根据节点将左右子树分离开来.
+ * 前序遍历+后序遍历不可以重构出二叉树，因为存在很多种可能性，无法区分左右子树，但是如果是真二叉树，则结果是唯一的。
  */
 public class BinaryTree<E> implements BinaryTreeInfo {
 
@@ -129,6 +133,11 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     }
 
 
+    /**
+     * 相对于第一种做法，只是将入队判断操作进行了修改.
+     *
+     * @return
+     */
     public boolean isComplete2() {
         if (root == null) {
             return false;
@@ -145,11 +154,14 @@ public class BinaryTree<E> implements BinaryTreeInfo {
             if (tempNode.leftChild != null) {
                 queue.offer(tempNode.leftChild);
             } else if (tempNode.rightChild != null) {
+                //代表左边为空，右边不为空，则肯定不是完全二叉树
                 return false;
             }
             if (tempNode.rightChild != null) {
+                //代表左边肯定不为空.
                 queue.offer(tempNode.rightChild);
             } else {
+                //左边不为空，右边为空，那么接下来的节点应该全部都是叶子节点.
                 leaf = true;
             }
         }
@@ -157,6 +169,13 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     }
 
 
+    /**
+     * 判断二叉树是否是完全二叉树.完全二叉树的叶子节点全部在最后两层且如果一个节点的左子节点不为空，右子节点为null，则后面的节点全部为null
+     * 1.如果node.left!=null && node.right!=null,将node.left和node.right按照顺序入队。
+     * 2.如果node.left==null && node.right!=null, return false.
+     * 3.如果node.left!=null && node.right==null或者node.left==null && node.right==null, 则后面的节点全部都是叶子节点.否则不是完全二叉树。
+     * 根据如上的判断，我们可以使用一个flag来表示后面的节点是否应该是叶子节点，只要我们分析全情况就没有什么问题.
+     */
     public boolean isComplete() {
         if (root == null) {
             return false;
@@ -185,16 +204,34 @@ public class BinaryTree<E> implements BinaryTreeInfo {
             }
         }
         return true;
+    }
 
+    protected Node<E> precursor2(Node<E> node) {
+        if (node == null) {
+            return null;
+        }
+        if (node.leftChild != null) {
+            Node<E> pre = node.leftChild;
+            while (pre.rightChild != null) {
+                pre = pre.rightChild;
+            }
+            return pre;
+        } else {
+            while (node.parent != null && node == node.parent.leftChild) {
+                node = node.parent;
+            }
+            return node.parent;
+        }
     }
 
 
     /**
      * 获取节点的前驱节点.
+     * note:前驱节点指的是中序遍历的前一个节点.为了方便理解，我们可以使用BST树来理解
      */
     protected Node<E> precursor(Node<E> node) {
         if (node == null) {
-            return node;
+            return null;
         }
         if (node.leftChild != null) {
             Node<E> tempNode = node.leftChild;
@@ -367,6 +404,27 @@ public class BinaryTree<E> implements BinaryTreeInfo {
         while (!queue.isEmpty()) {
             Node<E> node = queue.poll();
             System.out.print(node.element + "\t");
+            if (node.leftChild != null) {
+                queue.offer(node.leftChild);
+            }
+            if (node.rightChild != null) {
+                queue.offer(node.rightChild);
+            }
+        }
+    }
+
+    public void invertTree() {
+        if (root == null) {
+            return;
+        }
+        Queue<Node<E>> queue = new LinkedList<>();
+        queue.offer(root);
+        Node<E> tmp;
+        while (!queue.isEmpty()) {
+            Node<E> node = queue.poll();
+            tmp = node.leftChild;
+            node.leftChild = node.rightChild;
+            node.rightChild = tmp;
             if (node.leftChild != null) {
                 queue.offer(node.leftChild);
             }
