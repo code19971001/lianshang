@@ -115,9 +115,18 @@ public class BST<E> extends BinaryTree<E> {
 
     /**
      * 根据节点，删除节点
+     * 1.叶子节点
+     *  直接删除即可，特殊的只有根节点也是叶子节点.
+     * 2.度为1的节点
+     *  如果要被删除的节点是左子节点，那么node.parent.left=child,child.parent=node.parent
+     *  如果要被删除的节点是右子节点，那么node.parent.right=child,child.parent=node.parent
+     *  如果node是根节点，那么root = child , child.parent = null
+     * 3.度为2的节点--前驱或者后继节点覆盖，然后删除前驱或者后继节点.
+     *
+     * 注：如果一个节点的度为2，那么他的前驱，后继节点的度只可能是0或者1.因此我们对度为2的节点进行处理.
+     *
      */
     private void remove(Node<E> node) {
-        logger.info("remove node info :" + node);
         if (node == null) {
             //表明没有找到
             logger.info("can`t find this element, so don`t need to remove");
@@ -127,18 +136,19 @@ public class BST<E> extends BinaryTree<E> {
             //该节点的度为2,找后继节点，覆盖度我们要删除的节点
             Node<E> successor = successor(node);
             node.element = successor.element;
-            //删除后继节点。
+            //如果来到了这里，我们需要删除的节点不再是原来的节点，而是后继节点.
             node = successor;
         }
-        //删除node节点(度为1或者0)。
+        //待删除节点的度必定为0或者1
         Node<E> replacement = node.leftChild != null ? node.leftChild : node.rightChild;
         if (replacement != null) {
-            //删除节点度为1，
+            //删除节点度为1
+            //更改父节点
             replacement.parent = node.parent;
+            //对根接待您的判断
             if (node.parent == null) {
+                //删除了根节点.
                 root = replacement;
-                //前面已经处理结束
-                /*replacement.parent=null;*/
             }
             if (node == node.parent.leftChild) {
                 node.parent.leftChild = replacement;
@@ -152,7 +162,7 @@ public class BST<E> extends BinaryTree<E> {
             root = null;
             afterRemove(node);
         } else {
-            //是叶子节点且度为1，且父节点不为空
+            //是叶子节点但不是根节点
             if (node.parent.leftChild == node) {
                 node.parent.leftChild = null;
             } else {
@@ -181,7 +191,7 @@ public class BST<E> extends BinaryTree<E> {
                 node = node.leftChild;
             }
         }
-        //没找到
+        //没有找到
         return null;
     }
 
@@ -197,6 +207,9 @@ public class BST<E> extends BinaryTree<E> {
     }
 
 
+    /**
+     * 前序遍历实现树节点的遍历输出
+     */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

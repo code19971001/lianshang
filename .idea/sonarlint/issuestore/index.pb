@@ -106,8 +106,6 @@ x
 Hdata_structure/src/main/java/com/it/_06_tree/printer/InorderPrinter.java,7\5\750f13521804df2412014021846360c568b8af45
 t
 Ddata_structure/src/main/java/com/it/_03_linkedlist/AbstractList.java,a\3\a37c24e3993508da26ffadb144fb73cd896ec417
-m
-=data_structure/src/main/java/com/it/_06_tree/bst/AVLTest.java,2\b\2b27369773e627232aae04c34f7309e89cb1d305
 ƒ
 Sdata_structure/src/main/java/com/it/_03_linkedlist/linkedlist/DoubleLinkedList.java,e\8\e85795581e9a55f61322dd573d2c44df016a6ad4
 
@@ -130,8 +128,6 @@ F
 data_structure/pom.xml,8\b\8bb6b0a128ecff20bcc55f5861b80ca949ce6ab2
 q
 Adata_structure/src/main/java/com/it/_06_tree/printer/Printer.java,5\3\5329cf3cfae98d7b1c08756dff959bd83acd9977
-r
-Bdata_structure/src/main/java/com/it/_06_tree/bst/RedBlackTree.java,b\a\ba636fc58be81e87e8e36bba9abd5f9c9becb383
 „
 Tdata_structure/src/main/java/com/it/_03_linkedlist/linkedlist/SingleLinkedList1.java,3\e\3e32906d0aea06413c6f543f65556a69768769a1
 „
@@ -346,8 +342,6 @@ r
 Bdata_structure/src/main/java/com/it/_05_queue/MyCircleDequeue.java,1\e\1eaeed88b997e780e8f588427577916d0aa8a8ed
 w
 Gdata_structure/src/main/java/com/it/work/tree/_226_ç¿»è½¬äºŒå‰æ ‘.java,8\c\8c0993dc37a352530156177d19bb5e188ecda668
-i
-9data_structure/src/main/java/com/it/_06_tree/bst/AVL.java,9\1\9179cbdd1370f900152db649d192eaff2bb219d0
 u
 Edata_structure/src/main/java/com/it/_06_tree/printer/BinaryTrees.java,c\d\cd07d33f364f5bb324e922ff8705361c9ba3defb
 z
@@ -356,11 +350,17 @@ m
 =data_structure/src/test/java/com/it/_06_tree/bst/BSTTest.java,e\f\ef7ae54af69acf233ac17ce2d057cc2d2e964261
 s
 Cdata_structure/src/main/java/com/it/_02_array/DynamicArrayTest.java,1\0\10131c1d4ae5622584b090ccb4f96ad4e090b715
-m
-=data_structure/src/main/java/com/it/_06_tree/bst/BSTTest.java,b\d\bdca6c4408e9f1f26b3cea89a01280441861fcec
 x
 Hdata_structure/src/main/java/com/it/_06_tree/printer/BinaryTreeInfo.java,4\1\417a3eeaa0e02a6ead5b0cebad5cf977a2aa82e5
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 @
 zuo_code/pom.xml,7\f\7fe1d4150cd1e655d00989cd2c5bab8bc1470d1b
+b
+2leetcode/src/main/java/com/it/tree/TestMorris.java,2\a\2a15ac65a803fbcaa5e720b29c79ac3891b68ab1
+h
+8leetcode/src/main/java/com/it/tree/BinarySearchTree.java,e\2\e232b7d9911ebe40b2de5ed0ab26d7e243b42d9c
+`
+0leetcode/src/main/java/com/it/tree/TreeNode.java,1\9\1979160d972f929e93c678429be1f257f0e04297
+m
+=leetcode/src/main/java/com/it/tree/_225_InvertBinaryTree.java,8\f\8f44d5b2a895a9d9ebf2c15f741be68a1a128977

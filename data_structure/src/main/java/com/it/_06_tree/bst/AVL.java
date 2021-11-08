@@ -3,10 +3,17 @@ package com.it._06_tree.bst;
 import java.util.Comparator;
 
 /**
- * 平衡二叉树：
+ * 平衡二叉搜索树，亦可称为自平衡二叉搜索树，在AVL树中任意节点的两个子树的高度最大差别为1。增加和删除可能需要
+ * 通过一次或者多次树旋转来平衡这个树。
+ *
+ * 为什么出现AVL树？
+ * 如果我们从小到大添加节点，那么二叉搜索树会退化成链表，导致查找效率急剧下降，当树越平衡，那么查找的效率肯定越高.
+ *
+ * 注意：我们不追求完美平衡，使用尽量少的平衡次数达到适度平衡即可.
+ * 平衡因子：某接待您的左右子树的高度差,因此AVL树的平衡因子只可能是1，0，-1。如果绝对值超过1，那么就处于失衡状态.
  *
  * @author : code1997
- * @date :2021-03-2021/3/20 20:17
+ * @date : 2021/3/20 20:17
  */
 public class AVL<E> extends BST<E> {
 
@@ -20,7 +27,7 @@ public class AVL<E> extends BST<E> {
 
     @Override
     protected void afterAdd(Node<E> node) {
-        //找到最先失衡的父节点
+        //找到最先失衡的父节点，也就是我们称为g的节点
         while ((node = node.parent) != null) {
             if (isBalance(node)) {
                 //更新高度，只需要维护添加的节点的父节点即可。
@@ -184,7 +191,9 @@ public class AVL<E> extends BST<E> {
 
     private static class AVLNode<E> extends Node<E> {
 
-
+        /**
+         * 创建的肯定是叶子，叶子节点的高度肯定是1，一定要注意这里的取值.
+         */
         public int height = 1;
 
         public AVLNode(E element, Node<E> parent) {
@@ -203,9 +212,13 @@ public class AVL<E> extends BST<E> {
         public void updateHeight() {
             int leftHeight = (leftChild == null ? 0 : ((AVLNode<E>) leftChild).height);
             int rightHeight = (rightChild == null ? 0 : ((AVLNode<E>) rightChild).height);
+            //更新当前节点的高度.
             height = 1 + Math.max(leftHeight, rightHeight);
         }
 
+        /**
+         * 返回比较高的左右子节点.
+         */
         private Node<E> tallerChild() {
             int leftHeight = (leftChild == null ? 0 : ((AVLNode<E>) leftChild).height);
             int rightHeight = (rightChild == null ? 0 : ((AVLNode<E>) rightChild).height);
@@ -215,7 +228,6 @@ public class AVL<E> extends BST<E> {
             if (leftHeight < rightHeight) {
                 return rightChild;
             }
-
             return isLeftChild() ? leftChild : rightChild;
         }
 
