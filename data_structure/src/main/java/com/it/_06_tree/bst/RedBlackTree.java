@@ -3,8 +3,10 @@ package com.it._06_tree.bst;
 import java.util.Comparator;
 
 /**
+ * 也是自平衡的二叉搜索树.
+ *
  * @author : code1997
- * @date :2021-03-2021/3/25 20:57
+ * @date : 2021/3/25 20:57
  */
 public class RedBlackTree<E> extends AVL<E> {
     private static final boolean RED = false;
@@ -59,9 +61,7 @@ public class RedBlackTree<E> extends AVL<E> {
 
 
     /**
-     * 对于红黑树节点
-     *
-     * @param <E>
+     * 对于红黑树来说存在颜色，节点的颜色只可能是BLACK或者RED
      */
     private static class RedBlackNode<E> extends Node<E> {
         boolean color;
