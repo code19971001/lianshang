@@ -346,8 +346,6 @@ u
 Edata_structure/src/main/java/com/it/_06_tree/printer/BinaryTrees.java,c\d\cd07d33f364f5bb324e922ff8705361c9ba3defb
 z
 Jdata_structure/src/test/java/com/it/_06_tree/bst/BinarySearchTreeTest.java,1\b\1b61c6b3587d5b685536ec255d51d5e821fa7c86
-m
-=data_structure/src/test/java/com/it/_06_tree/bst/BSTTest.java,e\f\ef7ae54af69acf233ac17ce2d057cc2d2e964261
 s
 Cdata_structure/src/main/java/com/it/_02_array/DynamicArrayTest.java,1\0\10131c1d4ae5622584b090ccb4f96ad4e090b715
 x

@@ -125,6 +125,8 @@ public class BST<E> extends BinaryTree<E> {
      *
      * 注：如果一个节点的度为2，那么他的前驱，后继节点的度只可能是0或者1.因此我们对度为2的节点进行处理.
      *
+     * 实际上被删除的度为1或者0的前驱或者后继节点.
+     *
      */
     private void remove(Node<E> node) {
         if (node == null) {
@@ -145,7 +147,7 @@ public class BST<E> extends BinaryTree<E> {
             //删除节点度为1
             //更改父节点
             replacement.parent = node.parent;
-            //对根接待您的判断
+            //对根节点的判断
             if (node.parent == null) {
                 //删除了根节点.
                 root = replacement;
@@ -155,7 +157,7 @@ public class BST<E> extends BinaryTree<E> {
             } else {
                 node.parent.rightChild = replacement;
             }
-            //恢复平衡需要等待节点确定已经被删除。
+            //恢复平衡需要等待节点确定已经被删除.
             afterRemove(node);
         } else if (node.parent == null) {
             //只有一个根节点
