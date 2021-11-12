@@ -33,7 +33,9 @@ public class BinaryTree<E> implements BinaryTreeInfo {
             return parent != null && this == parent.rightChild;
         }
 
-        //兄弟节点
+        /**
+         * @return : sibling node
+         */
         public Node<E> sibling() {
             if (isLeftChild()) {
                 return parent.rightChild;

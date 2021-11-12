@@ -362,3 +362,9 @@ h
 0leetcode/src/main/java/com/it/tree/TreeNode.java,1\9\1979160d972f929e93c678429be1f257f0e04297
 m
 =leetcode/src/main/java/com/it/tree/_225_InvertBinaryTree.java,8\f\8f44d5b2a895a9d9ebf2c15f741be68a1a128977
+v
+Fdata_structure/src/main/java/com/it/_06_tree/bst/BinarySearchTree.java,8\6\866a372ea62f457eae45ddcc7499a54c6ecd8e4c
+m
+=data_structure/src/test/java/com/it/_06_tree/bst/AVLTest.java,f\6\f6b0d1378d0b66de66b0123ebef56fd5c5cc4eda
+m
+=data_structure/src/test/java/com/it/_06_tree/bst/BSTTest.java,e\f\ef7ae54af69acf233ac17ce2d057cc2d2e964261
