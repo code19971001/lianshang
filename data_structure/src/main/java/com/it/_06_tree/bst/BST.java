@@ -7,10 +7,10 @@ import java.util.Comparator;
 import java.util.logging.Logger;
 
 /**
- *   前序：根节点->左子树->右子树。可以用于树状结构展示。 * 相对与线性数据结构相比，不能存在索引，二叉树存在以下的几种遍历方式.
- *   中序：左子树->根节点->右子树。对于bst树来说，中序遍历是升序或者降序排列。
- *   后序遍历：左子树->右子树->根节点。适用于一些先对子，然后对父的一些操作的时候。
- *   层序遍历：计算二叉树的高度，判断一棵树是否是完全二叉树，翻转二叉树。
+ * 前序：根节点->左子树->右子树。可以用于树状结构展示。 * 相对与线性数据结构相比，不能存在索引，二叉树存在以下的几种遍历方式.
+ * 中序：左子树->根节点->右子树。对于bst树来说，中序遍历是升序或者降序排列。
+ * 后序遍历：左子树->右子树->根节点。适用于一些先对子，然后对父的一些操作的时候。
+ * 层序遍历：计算二叉树的高度，判断一棵树是否是完全二叉树，翻转二叉树。
  * <p>
  * 如何来限定传入的泛型参数必须具有可比较性的？
  * 1.定义泛型类的时候要求:E extends Comparable,这样灵活性比较差，对于bean来说比较规则已经去被代码类确定.
@@ -116,17 +116,16 @@ public class BST<E> extends BinaryTree<E> {
     /**
      * 根据节点，删除节点
      * 1.叶子节点
-     *  直接删除即可，特殊的只有根节点也是叶子节点.
+     * 直接删除即可，特殊的只有根节点也是叶子节点.
      * 2.度为1的节点
-     *  如果要被删除的节点是左子节点，那么node.parent.left=child,child.parent=node.parent
-     *  如果要被删除的节点是右子节点，那么node.parent.right=child,child.parent=node.parent
-     *  如果node是根节点，那么root = child , child.parent = null
+     * 如果要被删除的节点是左子节点，那么node.parent.left=child,child.parent=node.parent
+     * 如果要被删除的节点是右子节点，那么node.parent.right=child,child.parent=node.parent
+     * 如果node是根节点，那么root = child , child.parent = null
      * 3.度为2的节点--前驱或者后继节点覆盖，然后删除前驱或者后继节点.
-     *
+     * <p>
      * 注：如果一个节点的度为2，那么他的前驱，后继节点的度只可能是0或者1.因此我们对度为2的节点进行处理.
-     *
+     * <p>
      * 实际上被删除的度为1或者0的前驱或者后继节点.
-     *
      */
     private void remove(Node<E> node) {
         if (node == null) {
@@ -158,11 +157,11 @@ public class BST<E> extends BinaryTree<E> {
                 node.parent.rightChild = replacement;
             }
             //恢复平衡需要等待节点确定已经被删除.
-            afterRemove(node);
+            afterRemove(node, replacement);
         } else if (node.parent == null) {
             //只有一个根节点
             root = null;
-            afterRemove(node);
+            afterRemove(node, null);
         } else {
             //是叶子节点但不是根节点
             if (node.parent.leftChild == node) {
@@ -170,12 +169,12 @@ public class BST<E> extends BinaryTree<E> {
             } else {
                 node.parent.rightChild = null;
             }
-            afterRemove(node);
+            afterRemove(node, null);
         }
         size--;
     }
 
-    protected void afterRemove(Node<E> node) {
+    protected void afterRemove(Node<E> node, Node<E> replacement) {
     }
 
     /**

@@ -51,7 +51,7 @@ public class AVL<E> extends BBST<E> {
      * 如果父节点失衡了，我们恢复平衡可能会导致树的高度发生变化，就有可能造成一连串的祖父节点失衡，极端情况下，所有的祖先节点都会失衡(O(logn)).
      */
     @Override
-    protected void afterRemove(Node<E> node) {
+    protected void afterRemove(Node<E> node, Node<E> replacement) {
         //找到最先失衡的父节点
         while ((node = node.parent) != null) {
             if (isBalance(node)) {

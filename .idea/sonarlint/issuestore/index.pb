@@ -368,3 +368,5 @@ m
 =data_structure/src/test/java/com/it/_06_tree/bst/AVLTest.java,f\6\f6b0d1378d0b66de66b0123ebef56fd5c5cc4eda
 m
 =data_structure/src/test/java/com/it/_06_tree/bst/BSTTest.java,e\f\ef7ae54af69acf233ac17ce2d057cc2d2e964261
+l
+<data_structure/src/main/java/com/it/_06_tree/BinaryTree.java,3\4\34196129d0885912057336d15d6d1368d47282f4

@@ -70,9 +70,107 @@ public class RBT<E> extends BBST<E> {
         }
     }
 
+    /**
+     * 1.如果删除的节点是红色的：直接删除。
+     * 2.删除的节点是黑色节点：
+     * 2.1.删除节点存在两个red节点：不会存在
+     * 2.1.拥有一个red节点的black节点：将替代节点染黑
+     * 2.2.删除黑色叶子节点.
+     */
     @Override
-    protected void afterRemove(Node<E> node) {
-        super.afterRemove(node);
+    protected void afterRemove(Node<E> node, Node<E> replacement) {
+        if (isRed(node)) {
+            return;
+        }
+        if (isRed(replacement)) {
+            black(replacement);
+            return;
+        }
+        //删除是根节点
+        Node<E> parent = node.parent;
+        if (parent == null) {
+            return;
+        }
+        //执行到这里的时候：sibling()实际上已经失效了.实际上我们可以反向思考,一旦执行到这里，父节点清空了哪一个，就代表是另外一边的节点，来获取兄弟节点.
+        //存在不严谨的地方，因为还有可能是父节点下溢，因此需要添加一层判断node.isLeftChild
+        boolean left = parent.leftChild == null || node.isLeftChild();
+        Node<E> sibling = left ? parent.rightChild : parent.leftChild;
+        //左右是对称的.
+        if (left) {
+            //删除节点在右边，兄弟节点在左边
+            if (isRed(sibling)) {
+                //兄弟节点是红色，将兄弟节点转化为黑色进行处理
+                black(sibling);
+                red(parent);
+                rotateLeft(parent);
+            }
+            //更换兄弟
+            sibling = parent.rightChild;
+            //来到这里说明：兄弟节点必定为黑色
+            if (isBlack(sibling.leftChild) && isBlack(sibling.rightChild)) {
+                //兄弟节点无法借节点给我，父节点向下合并:实际上将父节点染黑，兄弟节点染红.
+                boolean parentIsBlack = isBlack(parent);
+                if (parentIsBlack) {
+                    //递归调用
+                    afterRemove(parent, null);
+                } else {
+                    black(parent);
+                    red(sibling);
+                }
+            } else {
+                //兄弟节点至少有一个红节点可以借给我
+                if (isBlack(sibling.rightChild)) {
+                    //如果左孩子为黑色，对兄弟节点进行左旋转，将其转换为ll的情况
+                    rotateRight(sibling);
+                    //如果进行了左旋转，需要更新sibling
+                    sibling = parent.rightChild;
+                }
+                //旋转之后的中心节点(兄弟节点)的颜色应该跟随之前parent的节点，防止parent指针转换，先染色再旋转
+                color(sibling, colorOf(parent));
+                black(sibling.rightChild);
+                black(sibling);
+                //ll的情况下对parent进行右旋转即可.
+                rotateLeft(parent);
+            }
+        } else {
+            //删除节点在右边，兄弟节点在左边
+            if (isRed(sibling)) {
+                //兄弟节点是红色，将兄弟节点转化为黑色进行处理
+                black(sibling);
+                red(parent);
+                rotateRight(parent);
+            }
+            //更换兄弟
+            sibling = parent.leftChild;
+            //来到这里说明：兄弟节点必定为黑色
+            if (isBlack(sibling.leftChild) && isBlack(sibling.rightChild)) {
+                //兄弟节点无法借节点给我，父节点向下合并:实际上将父节点染黑，兄弟节点染红.
+                boolean parentIsBlack = isBlack(parent);
+                if (parentIsBlack) {
+                    //递归调用
+                    afterRemove(parent, null);
+                } else {
+                    black(parent);
+                    red(sibling);
+                }
+            } else {
+                //兄弟节点至少有一个红节点可以借给我
+                if (isBlack(sibling.leftChild)) {
+                    //如果左孩子为黑色，对兄弟节点进行左旋转，将其转换为ll的情况
+                    rotateLeft(sibling);
+                    //如果进行了左旋转，需要更新sibling
+                    sibling = parent.leftChild;
+                }
+                //旋转之后的中心节点(兄弟节点)的颜色应该跟随之前parent的节点，防止parent指针转换，先染色再旋转
+                color(sibling, colorOf(parent));
+                black(sibling.leftChild);
+                black(sibling);
+                //ll的情况下对parent进行右旋转即可.
+                rotateRight(parent);
+            }
+
+        }
+
     }
 
 
