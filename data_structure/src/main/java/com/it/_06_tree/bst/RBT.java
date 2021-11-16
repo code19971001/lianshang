@@ -76,16 +76,22 @@ public class RBT<E> extends BBST<E> {
      * 2.1.删除节点存在两个red节点：不会存在
      * 2.1.拥有一个red节点的black节点：将替代节点染黑
      * 2.2.删除黑色叶子节点.
+     *
+     * @node : 被删除的子节点或者替代被删除的叶子节点.
      */
     @Override
-    protected void afterRemove(Node<E> node, Node<E> replacement) {
+    protected void afterRemove(Node<E> node) {
         if (isRed(node)) {
+            //如果是红色叶子节点，多一步染色也无所谓；如果替代节点是红色，那么必须需要染成黑色
+            black(node);
             return;
         }
-        if (isRed(replacement)) {
-            black(replacement);
-            return;
-        }
+//        如果取代者是红色，染黑返回即可.
+//        if (isRed(replacement)) {
+//            black(replacement);
+//            return;
+//        }
+
         //删除是根节点
         Node<E> parent = node.parent;
         if (parent == null) {
@@ -114,7 +120,7 @@ public class RBT<E> extends BBST<E> {
                 red(sibling);
                 if (parentIsBlack) {
                     //递归调用
-                    afterRemove(parent, null);
+                    afterRemove(parent);
                 }
             } else {
                 //兄弟节点至少有一个红节点可以借给我
@@ -149,7 +155,7 @@ public class RBT<E> extends BBST<E> {
                 red(sibling);
                 if (parentIsBlack) {
                     //递归调用
-                    afterRemove(parent, null);
+                    afterRemove(parent);
                 }
             } else {
                 //兄弟节点至少有一个红节点可以借给我

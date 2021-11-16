@@ -155,12 +155,12 @@ public class BST<E> extends BinaryTree<E> {
             } else {
                 node.parent.rightChild = replacement;
             }
-            //恢复平衡需要等待节点确定已经被删除.
-            afterRemove(node, replacement);
+            //恢复平衡需要等待节点确定已经被删除.如果删除是度为1的节点，传递参数为:replacement,对avl树没有任何影响
+            afterRemove(replacement);
         } else if (node.parent == null) {
             //只有一个根节点
             root = null;
-            afterRemove(node, null);
+            afterRemove(node);
         } else {
             //是叶子节点但不是根节点
             if (node.parent.leftChild == node) {
@@ -168,12 +168,12 @@ public class BST<E> extends BinaryTree<E> {
             } else {
                 node.parent.rightChild = null;
             }
-            afterRemove(node, null);
+            afterRemove(node);
         }
         size--;
     }
 
-    protected void afterRemove(Node<E> node, Node<E> replacement) {
+    protected void afterRemove(Node<E> node) {
     }
 
     /**
