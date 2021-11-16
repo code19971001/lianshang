@@ -150,8 +150,7 @@ public class BST<E> extends BinaryTree<E> {
             if (node.parent == null) {
                 //删除了根节点.
                 root = replacement;
-            }
-            if (node == node.parent.leftChild) {
+            } else if (node == node.parent.leftChild) {
                 node.parent.leftChild = replacement;
             } else {
                 node.parent.rightChild = replacement;

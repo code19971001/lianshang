@@ -103,19 +103,18 @@ public class RBT<E> extends BBST<E> {
                 black(sibling);
                 red(parent);
                 rotateLeft(parent);
+                //更换兄弟
+                sibling = parent.rightChild;
             }
-            //更换兄弟
-            sibling = parent.rightChild;
             //来到这里说明：兄弟节点必定为黑色
             if (isBlack(sibling.leftChild) && isBlack(sibling.rightChild)) {
                 //兄弟节点无法借节点给我，父节点向下合并:实际上将父节点染黑，兄弟节点染红.
                 boolean parentIsBlack = isBlack(parent);
+                black(parent);
+                red(sibling);
                 if (parentIsBlack) {
                     //递归调用
                     afterRemove(parent, null);
-                } else {
-                    black(parent);
-                    red(sibling);
                 }
             } else {
                 //兄弟节点至少有一个红节点可以借给我
@@ -128,7 +127,7 @@ public class RBT<E> extends BBST<E> {
                 //旋转之后的中心节点(兄弟节点)的颜色应该跟随之前parent的节点，防止parent指针转换，先染色再旋转
                 color(sibling, colorOf(parent));
                 black(sibling.rightChild);
-                black(sibling);
+                black(parent);
                 //ll的情况下对parent进行右旋转即可.
                 rotateLeft(parent);
             }
@@ -139,19 +138,18 @@ public class RBT<E> extends BBST<E> {
                 black(sibling);
                 red(parent);
                 rotateRight(parent);
+                //更换兄弟
+                sibling = parent.leftChild;
             }
-            //更换兄弟
-            sibling = parent.leftChild;
             //来到这里说明：兄弟节点必定为黑色
             if (isBlack(sibling.leftChild) && isBlack(sibling.rightChild)) {
                 //兄弟节点无法借节点给我，父节点向下合并:实际上将父节点染黑，兄弟节点染红.
                 boolean parentIsBlack = isBlack(parent);
+                black(parent);
+                red(sibling);
                 if (parentIsBlack) {
                     //递归调用
                     afterRemove(parent, null);
-                } else {
-                    black(parent);
-                    red(sibling);
                 }
             } else {
                 //兄弟节点至少有一个红节点可以借给我
@@ -164,7 +162,7 @@ public class RBT<E> extends BBST<E> {
                 //旋转之后的中心节点(兄弟节点)的颜色应该跟随之前parent的节点，防止parent指针转换，先染色再旋转
                 color(sibling, colorOf(parent));
                 black(sibling.leftChild);
-                black(sibling);
+                black(parent);
                 //ll的情况下对parent进行右旋转即可.
                 rotateRight(parent);
             }
