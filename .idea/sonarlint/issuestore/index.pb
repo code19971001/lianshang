@@ -110,8 +110,6 @@ Ddata_structure/src/main/java/com/it/_03_linkedlist/AbstractList.java,a\3\a37c2
 Sdata_structure/src/main/java/com/it/_03_linkedlist/linkedlist/DoubleLinkedList.java,e\8\e85795581e9a55f61322dd573d2c44df016a6ad4
 
 Odata_structure/src/main/java/com/it/_03_linkedlist/arraylist/DynamicArray2.java,e\9\e9bb4833c6102f275188e3f307a4aeaffd0c86ef
-l
-<data_structure/src/main/java/com/it/_06_tree/file/Files.java,0\d\0d3b7625c8df1353d0c6cf491f1356f9e04c82f3
 v
 Fdata_structure/src/main/java/com/it/_03_linkedlist/LinkedListTest.java,0\3\035a125ee070ea9c2be83494f22808667dbb8035
 l
@@ -368,5 +366,3 @@ m
 =data_structure/src/test/java/com/it/_06_tree/bst/AVLTest.java,f\6\f6b0d1378d0b66de66b0123ebef56fd5c5cc4eda
 m
 =data_structure/src/test/java/com/it/_06_tree/bst/BSTTest.java,e\f\ef7ae54af69acf233ac17ce2d057cc2d2e964261
-l
-<data_structure/src/main/java/com/it/_06_tree/BinaryTree.java,3\4\34196129d0885912057336d15d6d1368d47282f4
