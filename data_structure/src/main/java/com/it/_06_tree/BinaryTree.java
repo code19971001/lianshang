@@ -19,58 +19,7 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     protected int size;
     protected Node<E> root;
 
-    protected static class Node<E> {
-        public E element;
-        public Node<E> leftChild;
-        public Node<E> rightChild;
-        public Node<E> parent;
 
-        public boolean isLeftChild() {
-            return parent != null && this == parent.leftChild;
-        }
-
-        public boolean isRightChild() {
-            return parent != null && this == parent.rightChild;
-        }
-
-        /**
-         * @return : sibling node
-         */
-        public Node<E> sibling() {
-            if (isLeftChild()) {
-                return parent.rightChild;
-            }
-            if (isRightChild()) {
-                return parent.leftChild;
-            }
-            //如果不是左/右节点，是叶子节点，所以肯定没有兄弟节点。
-            return null;
-        }
-
-
-        public Node(E element, Node<E> parent) {
-            this.element = element;
-            this.parent = parent;
-        }
-
-        @Override
-        public String toString() {
-            String parentString = "null";
-            if (parent != null) {
-                parentString = parent.element.toString();
-            }
-            return element + "_P(" + parentString + ")";
-        }
-
-        public boolean isLeaf() {
-            return this.leftChild == null && this.rightChild == null;
-        }
-
-        public boolean hasTwoChildren() {
-            return this.leftChild != null && this.rightChild != null;
-        }
-
-    }
 
     public int size() {
         return size;
@@ -465,6 +414,59 @@ public class BinaryTree<E> implements BinaryTreeInfo {
     public Object string(Object node) {
 
         return node;
+    }
+
+    protected static class Node<E> {
+        public E element;
+        public Node<E> leftChild;
+        public Node<E> rightChild;
+        public Node<E> parent;
+
+        public boolean isLeftChild() {
+            return parent != null && this == parent.leftChild;
+        }
+
+        public boolean isRightChild() {
+            return parent != null && this == parent.rightChild;
+        }
+
+        /**
+         * @return : sibling node
+         */
+        public Node<E> sibling() {
+            if (isLeftChild()) {
+                return parent.rightChild;
+            }
+            if (isRightChild()) {
+                return parent.leftChild;
+            }
+            //如果不是左/右节点，是叶子节点，所以肯定没有兄弟节点。
+            return null;
+        }
+
+
+        public Node(E element, Node<E> parent) {
+            this.element = element;
+            this.parent = parent;
+        }
+
+        @Override
+        public String toString() {
+            String parentString = "null";
+            if (parent != null) {
+                parentString = parent.element.toString();
+            }
+            return element + "_P(" + parentString + ")";
+        }
+
+        public boolean isLeaf() {
+            return this.leftChild == null && this.rightChild == null;
+        }
+
+        public boolean hasTwoChildren() {
+            return this.leftChild != null && this.rightChild != null;
+        }
+
     }
 
 
