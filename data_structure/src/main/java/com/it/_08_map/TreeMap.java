@@ -372,6 +372,7 @@ public class TreeMap<K, V> implements IMap<K, V> {
         queue.offer(root);
         while (!queue.isEmpty()) {
             Node<K, V> tmpNode = queue.poll();
+            //实际上这个方式相对于null单独处理来说，代码量偏少，效率会差一些(多了一次判断)，java官方是分开来写的。
             if (valEquals(tmpNode.value, value)) {
                 return true;
             }
