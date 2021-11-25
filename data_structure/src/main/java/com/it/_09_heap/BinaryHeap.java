@@ -12,6 +12,15 @@ import java.util.Comparator;
  * 2.如果i>0，他的父节点编号为floor(i-1)/2
  * 3.如果2i+1<=n-1,他的左子节点编号为2i+1，他的右子节点为2i+2
  * 4.如果2i+1>n-1,他无左子节点，也没有右子节点
+ * <p>
+ * 需求：批量建立堆
+ * 方案1：写一个for循环，逐个添加，时间复杂度：O(nlogn)
+ * 局部最大堆导致最终最大堆方案：
+ * 方案2：自上而下的上滤。以二叉树的形式从上往下，每个元素进行上滤，根节点没有必要进行上滤，因此从1开始--->添加操作。
+ * 时间复杂度：O(nlogn)，实际上是所有节点的深度之和，
+ * 方案3：自下而上的下滤。以二叉树的形式从下网上，逐个元素进行下滤，如果发现当前节点是叶子节点就没有必要进行下滤，因此可以从最后一个叶子节点的前一个节点开始(size>>1)-1--->删除操作。
+ * 时间复杂度：O(n)所有节点的高度之和
+ * 这两种方案来说：方案3的效率比较高，不仅需要操作的节点比较少，而且只有少数的节点需要下滤为logn.
  *
  * @author : code1997
  * @date : 2021/11/24 22:13
@@ -23,13 +32,47 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
     protected E[] elements;
 
     public BinaryHeap() {
-        this(null);
-        elements = (E[]) new Object[DEFAULT_CAPACITY];
+        this(null, null);
     }
 
     public BinaryHeap(Comparator<E> comparator) {
+        this(null, comparator);
+    }
+
+    public BinaryHeap(E[] eles) {
+        this(eles, null);
+        //原地建立堆
+    }
+
+    public BinaryHeap(E[] eles, Comparator<E> comparator) {
         super(comparator);
-        elements = (E[]) new Object[DEFAULT_CAPACITY];
+        if (eles == null || eles.length == 0) {
+            elements = (E[]) new Object[DEFAULT_CAPACITY];
+        } else {
+            //拷贝而不是直接赋值，防止外界修改
+            elements = (E[]) new Object[Math.max(eles.length, DEFAULT_CAPACITY)];
+            System.arraycopy(eles, 0, elements, 0, eles.length);
+            size = eles.length;
+            heapify();
+        }
+    }
+
+    /**
+     * 自上而下的上滤
+     */
+    private void heapify() {
+        for (int i = 1; i < size; i++) {
+            siftUp2(i);
+        }
+    }
+
+    /**
+     * 自下而上的下滤
+     */
+    private void heapify2() {
+        for (int i = ((size >> 1) - 1); i >= 0; i--) {
+            siftDown(i);
+        }
     }
 
     @Override
@@ -166,6 +209,7 @@ public class BinaryHeap<E> extends AbstractHeap<E> implements BinaryTreeInfo {
      * 删除堆顶元素，并添加新元素
      * 做法一：先删除再添加.相当于先siftDown然后siftUp.
      * 做法二：覆盖堆顶，然后进行siftDown
+     * 时间复杂度O(logn)
      */
     @Override
     public E replace(E element) {

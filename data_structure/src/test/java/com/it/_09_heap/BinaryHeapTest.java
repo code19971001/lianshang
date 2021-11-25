@@ -4,8 +4,6 @@ import com.it._06_tree.printer.BinaryTrees;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
  * @author : code1997
  * @date : 2021/11/24 23:06
@@ -47,6 +45,20 @@ public class BinaryHeapTest {
         BinaryTrees.println(maxHeap);
         maxHeap.replace(1);
         BinaryTrees.println(maxHeap);
+    }
+
+    @Test
+    public void testHeapify() {
+        Integer[] data = {1, 44, 2, 5, 7, 10, 3};
+        BinaryHeap<Integer> integerBinaryHeap = new BinaryHeap<>(data);
+        BinaryTrees.println(integerBinaryHeap);
+    }
+
+    @Test
+    public void testMinHeapify() {
+        Integer[] data = {1, 44, 2, 5, 7, 10, 3};
+        BinaryHeap<Integer> integerBinaryHeap = new BinaryHeap<>(data, (o1, o2) -> o2 - o1);
+        BinaryTrees.println(integerBinaryHeap);
     }
 
 }

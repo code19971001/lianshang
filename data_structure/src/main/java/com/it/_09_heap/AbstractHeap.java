@@ -9,6 +9,7 @@ import java.util.Comparator;
 public class AbstractHeap<E> implements IHeap<E>{
 
     protected int size;
+
     protected Comparator<E> comparator;
 
     public AbstractHeap() {
@@ -20,6 +21,9 @@ public class AbstractHeap<E> implements IHeap<E>{
 
     }
 
+    /**
+     * 通过改变比较策略实现最小堆
+     */
     protected int compare(E e1, E e2) {
         return comparator != null ? comparator.compare(e1, e2) : ((Comparable<E>) e1).compareTo(e2);
     }
