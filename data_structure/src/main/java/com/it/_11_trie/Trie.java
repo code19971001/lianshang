@@ -104,19 +104,23 @@ public class Trie<V> {
             return null;
         }
         V oldValue = node.value;
+        size--;
         if (node.children != null) {
             //后面还有其他节点，变色即可。
             node.color = BLACK;
-            size--;
+            return oldValue;
         }
+        Node<V> parent = node.parent;
         //没有子节点，逐渐向上删除，直到第一个为红色的父节点或者没有父节点位置。
         for (int i = key.toCharArray().length - 1; i >= 0; i--) {
-            if (node.parent == null || node.parent.color) {
-                node.parent.children.remove(key.charAt(i));
+            if (parent == null) {
                 break;
             }
-            node.parent.children.remove(key.charAt(i));
-            node = node.parent;
+            parent.children.remove(key.charAt(i));
+            if (parent.color || !parent.children.isEmpty()) {
+                break;
+            }
+            parent = parent.parent;
         }
         return oldValue;
     }
