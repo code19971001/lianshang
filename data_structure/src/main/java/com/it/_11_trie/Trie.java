@@ -109,11 +109,14 @@ public class Trie<V> {
             node.color = BLACK;
             size--;
         }
-        //没有子节点，逐渐向上删除，直到第一个为红色的父节点。
+        //没有子节点，逐渐向上删除，直到第一个为红色的父节点或者没有父节点位置。
         for (int i = key.toCharArray().length - 1; i >= 0; i--) {
-            if (node.parent != null && (!node.parent.color)) {
+            if (node.parent == null || node.parent.color) {
                 node.parent.children.remove(key.charAt(i));
+                break;
             }
+            node.parent.children.remove(key.charAt(i));
+            node = node.parent;
         }
         return oldValue;
     }
