@@ -68,8 +68,6 @@ p
 @data_structure/src/main/java/com/it/_05_queue/MyCircleQueue.java,4\c\4cc62bacfe4970fe29aab6cd5f751df7ed0d4e7e
 l
 <data_structure/src/main/java/com/it/_05_queue/MyDequeue.java,f\6\f6c0ad1a6129ade3e7a92b1cff87928d4e458fe7
-j
-:data_structure/src/main/java/com/it/_05_queue/MyQueue.java,8\b\8bacbb2d72e2ec27d65d110ab1bba0ce0c12c7e7
 q
 Adata_structure/src/main/java/com/it/_05_queue/MyQueueByStack.java,4\3\434cc3b086b3e4d5175439f393415f33de2ff65a
 e
